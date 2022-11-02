@@ -87,7 +87,7 @@
 + Delete : O(log n)
 
 ##### Rotation
-<img scr = "../../Images/Tree_rotation.png" width = 200>
+<img scr = "https://github.com/Luci-Park/CS/blob/main/Images/Tree_rotation.png" width = 200>
 
 + Red - Black Tree에서 rebalancing할 때 중심으로 쓰이는 알고리즘
 + O(1)

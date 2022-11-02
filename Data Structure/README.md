@@ -89,5 +89,5 @@
 ##### Rotation
 + Red - Black Tree에서 rebalancing할 때 중심으로 쓰이는 알고리즘
 + O(1)
-![Rotation Image](https://en.wikipedia.org/wiki/Tree_rotation#/media/File:Tree_rotation.png)
+![Rotation Image](Data Structure\Image\Tree_rotation.png)
 1. Left Rotate

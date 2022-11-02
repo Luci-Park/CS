@@ -121,6 +121,7 @@
         x.parent = y
         ``` 
 ##### Insertion
+```
 1. BST로 올바른 곳에 삽입
 2. if(x == root) x = black 끝
 3. if(x.parent == black) 끝
@@ -143,17 +144,19 @@
     4. Right Left
         1. right rotate parent
         2. Right Right 적용
-
+```
 ##### Deletion
 * v = 삭제 대상 
 * u = v를 대체하게 되는 v의 child
+```
 1. BST 삭제 작용 
 2. if(u == red || v == red)
     1. u = black
 3. if(u == black && v == black)
     1. u = black black(double black)
     2. while (u == double black && u != root)
-    
+```
+
 #### B-Tree
 * Balanced Search Tree
 * 이진트리를 확장해서 더 많은 수의 자식을 가질 수 있게 함
@@ -166,8 +169,6 @@
     - 모든 leaf의 위치는 동일함
     - 중복 없음
 * B+ : B-Tree에서 검색을 더 빠르게 하기 위해 B에 index역할의 비단말 노드 추가
-
-
 
 ### Hash Table
 * 고유한 인덱스 값으로 데이터에 접근

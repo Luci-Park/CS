@@ -87,7 +87,10 @@
 + Delete : O(log n)
 
 ##### Rotation
+<img scr = "../Images/Tree_rotation.png" width = 200>
+
 + Red - Black Tree에서 rebalancing할 때 중심으로 쓰이는 알고리즘
 + O(1)
-![Rotation Image](Image\Tree_rotation.png)
-1. Left Rotate
+
+- Left Rotate
+- Right Rotate

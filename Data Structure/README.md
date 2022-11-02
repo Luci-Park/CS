@@ -153,7 +153,7 @@
 3. if(u == black && v == black)
     1. u = black black(double black)
     2. while (u == double black && u != root)
-        1. if u.sibling == black && one of u.sibling.child == red
+    
 #### B-Tree
 * Balanced Search Tree
 * 이진트리를 확장해서 더 많은 수의 자식을 가질 수 있게 함

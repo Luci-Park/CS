@@ -3,6 +3,7 @@
 ## 선형 구조(linear)
 
 ### Array
+
 * 논리적 저장 순서와 물리적 저장 순서가 일치
 * 인덱스로 해당 원소 접근 가능
 * Search: O(1) = random access가능
@@ -10,22 +11,26 @@
 * Delete: O(n) (worst case)
 
 ### Linked List
+
 * 각 원소들이 자기 자신 다음 원소를 기억하고 있음
 * Insert나 Delete은 O(1)가 가능하나 Search는 O(n).
 * Insert와 Delete에는 Search가 거의 필수적으로 필요하기 때문에 O(n)이나 다름없다.
 * Tree 구조의 기본이 된다.
 
 ### Stack
+
 * LIFO(Last In First Out)
 * Push, Pop
 
 ### Queue
+
 * FIFO(First In First Out)
 * Enqueue, Dequeue
 
 ## 비선형
 
 ### Tree
+
 * Parent와 Child가 연결, Child가 Ancestor과 연결되어 있거나 하는 Cycle를 허용하지 않는다.
 * Node(노드)
 * Edge(간선)
@@ -34,6 +39,7 @@
 * Internal Node(내부 노드, 비단말 노드)
 
 #### Binary Tree(이진 트리)
+
 * 모든 root은 두 개의 subree를 가진다(이 때 공집합도 이진 트리이다)
 * 배열로 구성되었고, root이 1에서 시작하며, 노드의 개수가 n개 일 때:
     + Left(i) = 2 * i
@@ -45,6 +51,7 @@
 * Complete Binary Tree(완전 이진 트리): 마지막 level을 제외한 모든 level에 노드가 왼쪽에서부터 차례로 다 차 있는 이진 트리
 
 #### Heap
+
 * Complete Binary Tree
 * 배열 형식을 주로 사용.
 * Max Heap: 모든 노드는 parent >= child를 만족한다.
@@ -60,6 +67,7 @@
     3. root가 조건에 맞을 때 까지 child와 교환.
 
 #### Binary Search Tree
+
 * 쉽게 찾기 위해 정렬한 트리
 * 규칙
     - 각 키는 Unique
@@ -77,6 +85,7 @@
 * 높이가 알고리즘의 성능을 결정하기 때문에 skew 방지를 위한 balancing 사용
 
 #### Red - Black Tree
+
 * BST에 balancing 알고리즘을 적용한 경우
 * c++ map 에 적용
 * 조건
@@ -95,7 +104,9 @@
     1. BST에 따라 노드 삭제
     2. 노드의 child 개수에 따라 rotation을 진행
     3. 기존 노드가 black이라면 해당 경로에 black node가 1개 추가되도록 rotation.
+
 ##### Rotation
+
 * Red - Black Tree에서 rebalancing할 때 중심으로 쓰이는 알고리즘
 * O(1)
     - Left Rotate : right child를 parent로 두고 right child의 left child를 right child로 두는 과정
@@ -120,7 +131,9 @@
         y.right = x
         x.parent = y
         ``` 
+
 ##### Insertion
+
 ```
 1. BST로 올바른 곳에 삽입
 2. if(x == root) x = black 끝
@@ -145,7 +158,9 @@
         1. right rotate parent
         2. Right Right 적용
 ```
+
 ##### Deletion
+
 * v = 삭제 대상 
 * u = v를 대체하게 되는 v의 child
 ```
@@ -158,6 +173,7 @@
 ```
 
 #### B-Tree
+
 * Balanced Search Tree
 * 이진트리를 확장해서 더 많은 수의 자식을 가질 수 있게 함
 * 파일 관리 등에서 사용
@@ -171,6 +187,7 @@
 * B+ : B-Tree에서 검색을 더 빠르게 하기 위해 B에 index역할의 비단말 노드 추가
 
 ### Hash Table
+
 * 고유한 인덱스 값으로 데이터에 접근
 * Search: O(1) - average case(collision 일어나면 느려짐)
 * Hash Function으로 유리한 보안
@@ -178,6 +195,7 @@
 * 중복 제거에 활용 가능
 
 #### Resolving Hashing Conflict
+
 1. Open Address
     * Collision이 일어나면 다른 저장할 장소를 찾는 방식
     * 방법
@@ -210,6 +228,7 @@
     * 데이터 개수가 해쉬 버킷의 개수의 75%가 될 때마다 버킷이 미리 두 배로 확장 하는 것.
 
 ### Graph
+
 * 정점: 노드
 * 간선: 노드와 노드 연결
 * Directed/Undirected Graph : 간선의 방향 유 / 무

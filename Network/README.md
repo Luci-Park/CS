@@ -112,6 +112,14 @@
 ### HTTP의 보안성
 * HTTP는 암호화가 되어 있지 않다.
     - 도청 : TCP packet sniffing
-        ** 
+        + **암호화**
+        SSL(Secure Socket Layer), TLS(Transport Layer Security)같은 protocol을 조합 => HTTPS, HTTP over SSL이라 지칭
     - 위증 : 통신 상대를 확인하지 않기 때문
+        + **SSL로 상대 확인**
+        SSL은 신뢰할 수 있는 제 3자 기관으로부터 발행되는 증명서로 상대를 확인한다.
     - 변조 : 정보가 원본인지 모른다.
+        + **보완**
+        MD5, SHA-1등의 해시 값을 확인하는 방법과 파일의 디지털 서명을 확인하는 방법이 존재한다. HTTPS가 제일 확실하다.
+* HTTPS
+    > HTTP -> TCP 였던 것을 HTTP -> SSL -> TCP로 바꿔서 보안성을 챙김
+    이전에는 HTTPS가 CPU같은 리소스를 사용했으나 하드웨어의 발달로 빨라졌다. 새로운 표준인 HTTP 2.0을 함께 사용한다면 HTTPS가 더 빠르다.

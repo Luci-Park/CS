@@ -91,3 +91,27 @@
 * DNS, 실시간 스트리밍에 사용
 
 #### 헤더
+
+## Application Layer
+* 전송 받은 내용을 display하는 layer
+### GET and POST
+* HTTP 프로콜로 서버에게 무언가를 요청할 때 사용.
+#### GET
+* HTTP Request Message의 Header 부분에 url이 담겨서 사용.
+* url ? 뒤에 데이터를 붙여 보냄
+* 크기가 제한적, 보안 없음(url에서 다 노출)
+* 서버에서 조회 등을 위한 목표로 사용
+* 요청이 브라우저에 캐슁 될 수 있다. 
+
+#### POST
+* HTTP Request Message의 Body 부분에 url이 담겨서 사용.
+* url ? 뒤에 데이터를 붙여 보냄
+* 데이터 크기가 더 크다.
+* 서버의 값이나 상태를 변경하기 위해서 사용
+
+### HTTP의 보안성
+* HTTP는 암호화가 되어 있지 않다.
+    - 도청 : TCP packet sniffing
+        ** 
+    - 위증 : 통신 상대를 확인하지 않기 때문
+    - 변조 : 정보가 원본인지 모른다.

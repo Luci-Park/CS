@@ -249,8 +249,6 @@ _글로만 설명하기가 어려운 것 같아 그림과 함께 설명된 링�
 
 * http://asfirstalways.tistory.com/348
 
-[뒤로](https://github.com/JaeYeopHan/for_beginner)/[위로](#part-1-4-운영체제)
-
 </br>
 
 ---
@@ -314,8 +312,6 @@ Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 
 
 * 고급 언어의 설계 구조물로서, 개발자의 코드를 상호배제 하게끔 만든 추상화된 데이터 형태이다.
 * 공유자원에 접근하기 위한 키 획득과 자원 사용 후 해제를 모두 처리한다. (세마포어는 직접 키 해제와 공유자원 접근 처리가 필요하다. )
-
-[뒤로](https://github.com/JaeYeopHan/for_beginner)/[위로](#part-1-4-운영체제)
 
 ---
 
@@ -486,8 +482,6 @@ Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 
 
 </br>
 
-[뒤로](https://github.com/JaeYeopHan/for_beginner)/[위로](#part-1-4-운영체제)
-
 ---
 
 ## 캐시의 지역성
@@ -515,8 +509,6 @@ Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 
 1.  Full Associative
 2.  Set Associative
 3.  Direct Map
-
-[뒤로](https://github.com/JaeYeopHan/for_beginner)/[위로](#part-1-4-운영체제)
 
 </br>
 

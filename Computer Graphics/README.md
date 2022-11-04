@@ -1,5 +1,7 @@
 # Computer Graphics
 
+## Geometry
+
 ## Rotation
 오일러(Euler)은 축들을 순서대로 독립적으로 계산하기 때문에 겹쳐지는 짐벌락 현상이 발생함.
 

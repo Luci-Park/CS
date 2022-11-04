@@ -12,8 +12,8 @@ __짐벌락(Gimbal Lock)__
 * 180보다 큰 값은 표현할 수 없음.
 * float 4개만으로 연산을 하기 때문에 4*4의 회전 행렬보다 연산 수가 적어 속도가 빠르다.
 
-_Quaternion Interpolation_
-Interpolation은 두 점 사이의 어떤 점의 위치를 알아내기 위한 것.
+_Interpolation_
+두 점 사이의 어떤 점의 위치를 알아내기 위한 것.
 
 1. LERP(Linear intERPolation) : 두 점을 지나는 직선 위에서의 점
 

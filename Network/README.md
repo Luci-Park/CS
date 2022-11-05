@@ -4,54 +4,54 @@
 
 ### OSI 7 계층 모델
 * PDU(Process Data Unit)
-    - 각 계층의 데이터 전송 단위. 계층마다 다르다.
+    + 각 계층의 데이터 전송 단위. 계층마다 다르다.
 * 네트워크 통신 과정
     1. Physical
-        - 기계어를 전기 신호로 바꾸어 물리 매체에 보내는 것
-        - PDU : bit
-        - Protocol: Modem, Cableetc
-        - 장비: 허브, 리피터
+        + 기계어를 전기 신호로 바꾸어 물리 매체에 보내는 것
+        + PDU : bit
+        + Protocol: Modem, Cableetc
+        + 장비: 허브, 리피터
     2. Link
-        - 네트워크 기기들 사이에서 데이터 전송을 하는 역할
-        - PDU : frame
-        - Protocol: ethernet, wifi
-        - 장비: 브릿지, 스위치
+        + 네트워크 기기들 사이에서 데이터 전송을 하는 역할
+        + PDU : frame
+        + Protocol: ethernet, wifi
+        + 장비: 브릿지, 스위치
     3. Network
-        - 기기에서 데이터가 갈 경로를 설정
-        - PDU : Packet
-        - Protocol: IP, ICMP
-        - 장비: 라우터
+        + 기기에서 데이터가 갈 경로를 설정
+        + PDU : Packet
+        + Protocol: IP, ICMP
+        + 장비: 라우터
     4. Transport
-        - 패킷 전송의 유효성 등 통신 신뢰성 보장
-        - PDU: Segment
-        - Protocol: TCP, UDP
-        - 장비: 게이트웨이
+        + 패킷 전송의 유효성 등 통신 신뢰성 보장
+        + PDU: Segment
+        + Protocol: TCP, UDP
+        + 장비: 게이트웨이
     5. Session
-        - 통신 세션을 구성
-        - 포트 기반으로 연결
-        - Protocol : NetBIOS, SSH
+        + 통신 세션을 구성
+        + 포트 기반으로 연결
+        + Protocol : NetBIOS, SSH
     6. Presentation
-        - 데이터의 형식을 정하는 과정
-        - Protocol: JPEG, MPEG
+        + 데이터의 형식을 정하는 과정
+        + Protocol: JPEG, MPEG
     7. Application
-        - 데이터를 사용자에게 전달(파일 전송 etc)
-        - Protocol: DNS, HTTP
+        + 데이터를 사용자에게 전달(파일 전송 etc)
+        + Protocol: DNS, HTTP
 
 ### TCP/IP 4 계층
 
 * 요즘에 더 많이 쓰이는 구조
 * 데이터의 정확성은 TCP가, 패킷의 전송은 IP가 담당
 * 단계별로 헤더를 붙여서 전송하게 된다.
-    - Data -> Segment -> Datagram -> Frame
+    + Data -> Segment -> Datagram -> Frame
 * 계층
     1. Link
-        - Physical + Link
+        + Physical + Link
     2. Internet(IP)
-        - Network
+        + Network
     3. Transport(UDP, TCP)
-        - Transport
+        + Transport
     4. Application
-        - Session + Presentation + Application
+        + Session + Presentation + Application
 
 ## Transport Layer
 

@@ -86,9 +86,56 @@ while Q is not empty
 
 * 1:1 최단 거리 알고리즘
 * 다익스트라와 비슷하나 다음 노드를 고를 때 휴리스틱 함수를 따름
+* 모든 간선을 봐야 되는 다익스트라에 비해 실용성이 더 높다.
 * 시작과 끝지점이 멀면 priority queue에 들어가는 원소가 많아지므로 느려짐
 * 시간 복잡도: O(E)
 * 공간 복잡도: O(V)
+
+__heuristic function__
+어떤 문제에 대해 답을 구할 수 없거나 구하기에 너무 느릴 때 대안책으로 쓰이는 함수.
+최단 경로를 과대평가하지 않는 것을 admissible 이라고 한다.
+
+*Manhattan Function*
+(x1, y1), (x2, y2)간의 거리는 |x1 - x2| + |y1 - y2|
+휴리스틱 함수로 쓰일 땐 h(n)=Σd(t,p)
+- d = 두 위치 사이의 거리
+- t = 어떤 숫자의 현재 위치
+- p = 그 노드가 원래 있어야 할 위치
+Manhattan Function은 admissible 하다.
+
+#### 알고리즘
+[링크](https://www.youtube.com/watch?v=-L-WgKMFuhE)
+1. 시작 노드는 주변의 8노드에 대해 탐색한다. 이때 대각선의 거리는 루트2 이며 보통 10을 곱해서 생각한다.
+2. 각 neighbore에 대해 cost를 계산
+	- gcost = 시작노드와의 거리
+	- hcost(heurisic) = 목표 노드와의 거리
+	- fcost = gcost + hcost
+	- 이미 탐색(방문 x) 했던 이웃노드는 fcost가 더 작으면 갱신
+3. fcost가 가장 짧은 것부터 고른다.
+	- fcost가 같으면 gcost가 짧은 것부터 고른다.
+	- 둘다 같으면 아무거나 고른다.
+
+_Pseudo Code_
+``` 
+OPEN //the set of nodes to be evaluated
+CLOSED // the set of nodes already evaluated
+loop
+	current = node in OPEN with lowest fcost
+	remove current from OPEN
+	add current to CLOSED
+
+	if current is the target node //target found
+		return
+	
+	foreach neighbour of the current node
+		if neighbour is not traversable or neighbour is in CLOSED
+			skip to the next neighbour
+		if new path to neighbour is shorter OR neighbour is not in OPEN
+			set fcost of neighbour
+			set parent of neighbour to current
+			if neighbour is not in OPEN
+				add neighbour to OPEN
+```
 
 ### Bellman Ford
 

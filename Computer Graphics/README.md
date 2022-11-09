@@ -13,6 +13,7 @@ __짐벌락(Gimbal Lock)__
 * (x, y, z, w)로 이루어짐
 * 180보다 큰 값은 표현할 수 없음.
 * float 4개만으로 연산을 하기 때문에 4*4의 회전 행렬보다 연산 수가 적어 속도가 빠르다.
+* eular보다 행렬로 변하는 것이 빠르다.
 
 _Interpolation_
 두 점 사이의 어떤 점의 위치를 알아내기 위한 것.
@@ -122,8 +123,39 @@ mat4 FPSViewRH(vec3 eye, float pitch, float yaw){
 ```
 
 ##### Arcball Orbit Camera
+Orbit around an object that is placed in the scene.
+오일러 각도를 사용할 때 x축으로 90 이상 움직이면 화면이 뒤집히고 양옆 회전이 반대가 된다.
+Quaternion으로 이를 방지 할 수 있다.
 
+V = (T1RT0) ^ -1
+- V = view matrix
+- T0 = translation that moves the camera a certain distance away from the object so the object can fit in the view.
+- R = the rotation around the object
+- T1 = the translation that moves the pivot point of the camera to the center of the object being observed. If object is at the origin, identity matrix 
 
+```cpp
+mat4 Arcball( vec3 t0, quat r, vec3 t1 = vec3(0) )
+{
+    mat4 T0 = translate( t0 ); // Translation away from object.
+    mat4 R  = toMat4( r );     // Rotate around object.
+    mat4 T1 = translate( t1 ); // Translate to center of object.
+ 
+    mat4 viewMatrix = inverse( T1 * R * T0 );
+ 
+    return viewMatrix;
+}
+
+mat4 ArcballOptimized( vec3 t0, quat r, vec3 t1 )
+{
+    mat4 T0 = translate( -t0 );       // Translation away from object.
+    mat4 R  = toMat4( inverse( r ) ); // Rotate around object.
+    mat4 T1 = translate( -t1 );       // Translate to center of object.
+ 
+    mat4 viewMatrix = T0 * R * T1;
+ 
+    return viewMatrix;
+}
+```
 
 ### Clip Space
 보여지지 않는 오브젝트를 걸러내고 카메라의 뷰에 따라서 Perspective View, 혹은 Orthogonal View를 적용한 상태로 만드는 변환 공간.

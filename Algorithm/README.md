@@ -39,10 +39,59 @@ for i = 1 to len
 ## 그래프 탐색 알고리즘
 
 ### BFS
-
+* 이웃들을 먼저 탐색하고 자식들을 탐색하는 알고리즘
+* 큐를 사용해서 구현
+```
+Queue Q;
+root.visited = true;
+add root to Q
+while Q is not empty
+	pop Q as node
+	for each neighbour of node
+		if neighbour is not visited
+			neighbour.visited = true;
+			add neighbour to Q
+```
 ### DFS
+* 자식들을 먼저 탐색하는 알고리즘
+* 재귀 함수 or 스택 사용해서 구현
+```
+Stack S;
+root.visited = true;
+add root to S
+while Q is not empty
+	pop S as node
+	for each neighbour of node
+		if neighbour is not visited
+			neighbour.visited = true;
+			add neighbour to S
+```
 
-## Minimal Spanning Tree
+```
+DFS(root )
+	if root == null return
+	root.visited = true;
+	for each neighbour of node
+		if neighbour is not visited
+			DFS(neighbour);
+```
+## Minimal Spanning Tree(최소 신장 트리)
+Minimal Spanning Tree는 모든 정점이 연결되어 있고 사이클이 없는 그래프 간선의 합이 최소가 되는 트리의 형태.
+네트워크 구축할 때 사용.
+
+### Kruskal 알고리즘
+
+* 사이클이 생기지 않는 간선들 중에서 가장 가중치가 작은 간선부터 고르는 방법
+* Union - Find 알고리즘을 기본으로 함.
+
+*Union-Find*
+각 노드의 parent를 기록함으로써 루트가 같으면 같은 cluster으로 판단 하는 것.
+```
+bool IsUnion(int a, int b){
+	
+}
+```
+
 
 ## 최단 거리 알고리즘
 
@@ -140,7 +189,13 @@ loop
 ### Bellman Ford
 
 * 음의 사이클이 없는 그래프에서 1:N 최단거리 알고리즘
+	- 음의 self loop
+	- 정점의 cycle의 합이 음수일때
+* 주식 시스템에서 사용.
+* 시간 복잡도: O(V^3)
+```
 
+```
 ### Floyd-Warshall
 
 * 음의 사이클이 없는 그래프에서의 N:N 최단거리 알고리즘

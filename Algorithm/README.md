@@ -86,12 +86,50 @@ Minimal Spanning Tree는 모든 정점이 연결되어 있고 사이클이 없�
 
 *Union-Find*
 각 노드의 parent를 기록함으로써 루트가 같으면 같은 cluster으로 판단 하는 것.
-```
-bool IsUnion(int a, int b){
-	
-}
-```
 
+```
+GetRoot(parent, int x)
+	if parent[x] is x
+		return x
+	else
+		return GetRoot(parent, root[x])
+
+IsUnion(int a, int b)
+	rootA = GetRoot(parent, a)
+	rootB = GetRoot(parent, b)
+	return rootA is rootB	
+
+Kruskal(Graph)
+	sort(Graph.edges)// 간선을 비용별로 오름차순 정렬
+	for i = 1 to Graph.Nodes.Length
+		parent[i] = i // 처음엔 모든 정점의 root이 본인
+	for each edge in Graph.edges
+		if not IsUnion(edge.a, edge.b) // 간선의 두 노드가 같은 cluster인가
+			select edge
+			if GetRoot(edge.a) < GetRoot(edge.b) // 더 작은 root의 노드가 parent이 된다.
+				parent[b] = a
+			else
+				parent[a] = b
+```
+### Prim 알고리즘
+
+* 임의로 정점을 하나 선택해서 연결 간선 중 가장 작은 것을 선택한다.
+* 해당 간선이 visited 배열 안에 포합되어 있다면 선택하지 않는다.
+
+```
+Prim(Graph, Weight, root)
+	for each u in Graph.vertices
+		u.key = INF
+		u.parent = NIL
+	root.key = 0
+	PQ = Graph.vertices
+	while PQ is not empty
+		u = PQ.front
+		for each v in Graph.adj[u]
+			if v in PQ and w(u, v) < v.key
+				v.parent = u
+				v.key = w(u, v)
+```
 
 ## 최단 거리 알고리즘
 
@@ -191,10 +229,23 @@ loop
 * 음의 사이클이 없는 그래프에서 1:N 최단거리 알고리즘
 	- 음의 self loop
 	- 정점의 cycle의 합이 음수일때
-* 주식 시스템에서 사용.
-* 시간 복잡도: O(V^3)
+	- 주식 시스템에서 사용.
+* V - 1 번 검증하면 최단 거리가 나올것이라는 전제
+* V - 1 반복해서 각 정점에서 간선을 통해 정점으로 가는 것이 더 빠르면 업데이트
+* 변화가 없으면 Stop
+* 시간 복잡도: O(VE)
 ```
-
+BellmanFord(Graph, weight, source)
+	for all u in Graph.vertices
+		u.dist = INF
+		u.prev = nill
+	
+	source.dist = 0
+	repeat Graph.vertices.length - 1 times
+		for all u in Graph.vertices
+			for all v in u.adj
+				if u.dist + Graph.edge(u, v) < v.dist
+					v.dist = u.dist + Graph.edge(u, v)
 ```
 ### Floyd-Warshall
 

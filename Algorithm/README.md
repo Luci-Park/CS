@@ -36,6 +36,121 @@ for i = 1 to len
 	swap(i, idx)
 ```
 
+### Bubble Sort
+* 두 개씩 비교해서 순서가 맞지 않으면 두 위치를 swap
+* 복잡도: O(n^2)
+```
+for i = 1 to len - 1
+	for j = 1 to len - i - 1
+		if A[j] < A[j + 1]
+			swap(A[j], A[j + 1])
+```
+
+### Merge Sort
+* 배열을 반씩 나눠서 순서대로 merge 하는 것
+* merge는 배열의 앞끼리 비교해서 작은 것 부터 배치 함
+* 장점
+	- 빠름
+* 단점
+	- 제자리 정렬이 아님
+	- 추가 공간 필요
+* 시간 복잡도: O(nlogn)
+* 공간 복잡도: O(n)
+
+```
+MergeSort(A)
+	if A.len == 1
+		return A
+	A1 = MergeSort(A[1]~A[len/2])
+	A2 = MergeSort(A[len/2 + 1]~A[len])
+	return Merge(A1, A2)
+
+Merge(A1, A2)
+	RSLT
+	while A1 and A2 is not empty
+		if A1[0] < A2[0]
+			RSLT.push(A1[0])
+			A1.pop
+		else
+			RSLT.push(A2[0])
+			A2.pop
+	while A1 is not empty
+		RSLT.Add(A1)
+	while A2 is not empty
+		RSLT.Add(A2)
+	return RSLT
+```
+
+### Quick Sort
+* 기준점을 가지고 기준점보다 작은 것은 왼쪽으로, 큰것은 오른쪽으로 두어서 정렬
+* 장점
+	- 불필요한 데이터의 이동을 줄임
+	- 한번 결정된 pivot은 다시 건들이지 않아 nlogn 중 가장 빠르다
+	- 추가 메모리 필요 없다
+* 단점
+	- 불안정(제자리 정렬이 아님)
+* 평균 복잡도: O(nlogn)
+* 최악 복잡도: O(n^2) - 정렬되어 있는 배열
+```
+QuickSort(A, lo, hi)
+	if lo < hi
+		pivot = Partition(A, lo, hi)
+		Quicksort(A, lo, pivot - 1)
+		Quicksort(A, pivot + 1, hi)
+
+Partition(A, lo, hi)
+	idx = random(lo, hi) // get a random pivot
+	swap(A[idx], A[hi]) // place the pivot at the end of the array
+	pivot = A[hi]
+	idx = hi
+	while lo <= hi // 양쪽에서 시작
+		while A[lo] <= pivot // partion에 맞지 않은 lo 와 hi 검색
+			lo += 1
+		while A[hi] >= pivot
+			hi -= 1
+		else
+			swap(A[lo], A[hi]) // 두 자리를 swap
+			lo += 1
+			high -= 1
+	swap(A[lo], A[idx]) // lo 위치에 pivot을 place
+	return lo
+```
+
+### Heap Sort
+* max Heap으로 배열을 변경하여 가장 큰 점부터 뒤로 보내어 오름차순 정렬을 하는 방식
+* 장점
+	- 퀵 정렬과 달리 어느 케이스간에 NlogN이 보장된다.
+* 단점
+	- 이상적인 경우의 퀵정렬보단 빠르다.
+	- 불안정 정렬이다.
+* 시간 복잡도: O(nlogn)
+```
+HeapSort(A)
+	BuildMaxHeap(A)
+	n = A.len
+	for i = n to 1
+		swap(A[1], A[i]) // 가장 큰 원소를 뒤로 보낸다
+		n -= 1 // sort된 노드를 제외하고 pop 대신의 온 노드에 대해 heapify
+		MaxHeapify(A, n, 1)
+
+BuildMaxHeap(A)
+	size = A.len
+	for i = size/2 to 1 // leaf는 이미 힙, heapify할 필요 없음.
+		MaxHeapify(A, size, i)
+
+MaxHeapify(A, size, i) // i 번째 노드에 대해 heapify 진행
+	l = i * 2 // i 의 left child
+	largest = i
+	// i의 left와 right child 중 i 보다 큰 child를 골라냄
+	if(l < size and A[l] > a[i])
+		largest = l
+	if(r < size and A[r] > a[largest])
+		largest = r
+	if(largest != i) // 만약 i 보다 큰 child가 있으면 자리 바꾸기
+		swap(A[i], A[largest])
+		MaxHeapify(A, size, largest) // swap이 일어났다면 노드에 대해 heapify 연산 수행
+```
+
 ## 그래프 탐색 알고리즘
 
 ### BFS

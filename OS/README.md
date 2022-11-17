@@ -116,7 +116,7 @@ _프로세스를 스케줄링하기 위한 Queue 에는 세 가지 종류가 존
 
 ### 장기스케줄러(Long-term scheduler or job scheduler)
 
-프로세스들이 한꺼번에 메모리에 올라올 경우, 대용량 메모리(일반적으로 디스크)에 임시로 저장된다. 이 중 어떤 프로세스에 메모리를 할당하여 ready queue 로 보낼지 결정하는 역할을 한다.
+프로세스들이 한꺼번에 메모리에 올라올 경우, 대용량 메모리(일반적으로 디스크)에 임시로 저장된다. 장기 스케줄러는 어떤 프로세스에 메모리를 할당하여 ready queue 로 보낼지 결정하는 역할을 한다.
 
 * 메모리와 디스크 사이의 스케줄링을 담당.
 * 프로세스에 memory(및 각종 리소스)를 할당(admit)
@@ -146,9 +146,9 @@ _cf) 메모리에 프로그램이 너무 많이 올라가도, 너무 적게 올�
 * 프로세스의 상태  
   ready -> suspended
 
-#### Process state - suspended
-
-Suspended(stopped) : 외부적인 이유로 프로세스의 수행이 정지된 상태로 메모리에서 내려간 상태를 의미한다. 프로세스 전부 디스크로 swap out 된다. blocked 상태는 다른 I/O 작업을 기다리는 상태이기 때문에 스스로 ready state 로 돌아갈 수 있지만 이 상태는 외부적인 이유로 suspending 되었기 때문에 스스로 돌아갈 수 없다.
+#### Process state
+* Blocked: I/O 작업을 기다리는 상태로 이후 스스로 ready state로 돌아갈 수 있다.
+* Suspended: 외부적인 이유로 프로세스가 정지되고 메모리에서 내려간 상태. 스스로 ready state으로 돌아갈 수 없다.
 
 </br>
 
@@ -186,8 +186,6 @@ _스케줄링 대상은 Ready Queue 에 있는 프로세스들이다._
 * 새로운 프로세스가 도착할 때마다 새로운 스케줄링이 이루어진다.
 * starvation
 * 새로운 프로세스가 도달할 때마다 스케줄링을 다시하기 때문에 CPU burst time(CPU 사용시간)을 측정할 수가 없다.
-
-</br>
 
 #### Priority Scheduling
 
@@ -227,25 +225,35 @@ _스케줄링 대상은 Ready Queue 에 있는 프로세스들이다._
 또 너무 작아지면 스케줄링 알고리즘의 목적에는 이상적이지만 잦은 context switch 로 overhead 가 발생한다.
 그렇기 때문에 적당한 `time quantum`을 설정하는 것이 중요하다.
 
-</br>
-
----
+#### Multilevel Queue
+* 우선순위가 다른 여러개의 우선순위 큐를 둔다.
+* starvation 방지를 위해 낮은 Q일 수록 큰 Time Quantum을 할당한다.
+__Multilevel Feedback Queue__
+Time Quantum을 채우면 아래 큐로 보낸다. 즉 aging을 접합한 것이다.
 
 ## 동기와 비동기의 차이
 
+### Blocking vs Non Blocking
+* Blocking I/O Model
+  - System Call 이 끝날 때까지 대기하고 완료가 되면 return
+  - wait queue에 들어간다
+  - 대기 중이면 바로 실행 안됨.
+* Non-Blocking I/O Model
+  - System Call이 끝나지 않아도 return 한다
+  - Wait queue에 들어간다.
+  - 프로그램 바로 실행 가능.
+  - 처리에 응답할 수 없다면 Error 반환.
+
 ### Sync vs Async
-* blocking: 
-* 동기(Sync) : 메소드를 실행시킴과 **동시에** 반환 값이 기대되는 경우.
-값이 반환되기 전까지는 **blocking** 되어 있다.
-* 비동기(Async) : blocking이 되지 않고 이벤트 큐에 넣거나 백그라운드 스레드에게 해당 task 를 위임하고 바로 다음 코드를 실행하기 때문에 기대되는 값이 바로 반환되지 않는다.
-
-_글로만 설명하기가 어려운 것 같아 그림과 함께 설명된 링크를 첨부합니다._
-
-#### Reference
-
-* http://asfirstalways.tistory.com/348
-
-</br>
+* 동기(Sync)
+  - System Call이 끝날 때까지 기다리고 결과물을 가져온다.
+  - 값이 반환되기 전까지는 **blocking** 되어 있다.
+  - Return에 값이 포함
+  - Return 기다리는 동안 굳이 waiting queue에 들어가 있지는 않는다.
+* 비동기(Async) 
+  - System Call이 완료되지 않아도 나중에 완료가 되면 그때 결과를 가져다.
+  - 이벤트 큐나 백그라운드 스레드에게 task 위임하고 다음 코드를 실행한다.
+  - 요청에 처리 완료와 관계없이 응답.
 
 ---
 
@@ -253,7 +261,7 @@ _글로만 설명하기가 어려운 것 같아 그림과 함께 설명된 링�
 
 ### Critical Section(임계영역)
 
-멀티 스레딩에 문제점에서 나오듯, 동일한 자원을 동시에 접근하는 작업(e.g. 공유하는 변수 사용, 동일 파일을 사용하는 등)을 실행하는 코드 영역을 Critical Section 이라 칭한다.
+동일한 자원을 동시에 접근하는 작업(e.g. 공유하는 변수 사용, 동일 파일을 사용하는 등)을 실행하는 코드 영역
 
 ### Critical Section Problem(임계영역 문제)
 
@@ -278,6 +286,53 @@ _글로만 설명하기가 어려운 것 같아 그림과 함께 설명된 링�
 
 * 다중처리기 환경에서는 시간적인 효율성 측면에서 적용할 수 없다.
 
+#### 알고리즘
+__Dekker Algorithm__
+실행시간을 겹치게 하지 않는 것이 목표
+```c
+while(true){
+  flag[i] = true; //i가 임계구역 진입 시도
+  while(flag[j]){ //j가 임계구역에 있다면
+    if(turn == j){ //그리고 j의 차례라면
+      flag[i] = false; //i 사용 취소
+      while(turn == j); // j의 차례가 끝날 때까지 대기
+      flag[i] = true; // i가 다시 진입 시도
+    }
+  }
+}
+(임계구역 진입)
+turn = j // i의 사용이 끝나면 차례를 넘긴다.
+flag[i] = false // 사용완료
+```
+
+__피터슨 알고리즘__
+진입 기회를 양보하는 알고리즘 추가
+```c
+while(true){
+  flag[i] = true; // 진입 시도
+  turn = j; // 기회 양도
+  while(flag[j] && turn == j); //j가 진입을 시도하면 대기
+}
+(임계구역 진입)
+flag[i] = false; //완료
+```
+
+__제과점__
+가장 작은 수의 번호표를 가지고 있는 프로세서가 진입한다.
+```c
+while(true){
+  isReady[i] = true;// 번호표 받을 준비
+  number[i] = max(number[0 ~ n] + 1); // 가장 큰 번호 배정
+  isReady[i] = false; // 번호 수령 완료
+  for(j = 0 TO n - 1){ // 모든 프로세스에 대해
+    while(isReady[j]); // 비교할 프로세스 j가 번호 받을 때까지 대기
+    while(number[j] && number[j] < number[i] && j < i) //j가 번호표가 있고 i의 번호보다 작다면 대기
+  }
+  (임계구역 진입)
+  number[i] = 0; //종료
+}
+```
+
 ### Semaphores(세마포)
 
 * 소프트웨어상에서 Critical Section 문제를 해결하기 위한 동기화 도구
@@ -294,11 +349,24 @@ OS 는 Counting/Binary 세마포를 구분한다
   MUTEX 라고도 부르며, 상호배제의 (Mutual Exclusion)의 머릿글자를 따서 만들어졌다.
   이름 그대로 0 과 1 사이의 값만 가능하며, 다중 프로세스들 사이의 Critical Section 문제를 해결하기 위해 사용한다.
 
+__알고리즘__
+```c
+procedure P(s) //진입여부를 S개를 통해 결정
+  while s = 0 do Wait
+  s:= s - 1
+end P
+(임계구역 진입)
+Procedure V(s)//나올 때 수행하여 S를 반납한다.
+  s:= s+ 1
+end V
+```
+
 #### 단점
 
 * Busy Waiting(바쁜 대기)  
-Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 진입해야하는 프로세스는 진입 코드를 계속 반복 실행해야 하며, CPU 시간을 낭비했었다. 이를 Busy Waiting이라고 부르며 특수한 상황이 아니면 비효율적이다.
-일반적으로는 Semaphore에서 Critical Section에 진입을 시도했지만 실패한 프로세스에 대해 Block시킨 뒤, Critical Section에 자리가 날 때 다시 깨우는 방식을 사용한다. 이 경우 Busy waiting으로 인한 시간낭비 문제가 해결된다.
+진입해야 되는 프로세스가 코드를 반복실행하여 CPU 시간을 낭비하는 것.
+Semaphore 초기 버전(Spin Lock) 때는 해당 문제가 발생함.
+실패한 프로세스를 block 시키고 자리날 때 다시 깨우는 방식으로 해결.
 
 #### Deadlock(교착상태)
 
@@ -506,10 +574,44 @@ Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 
 2.  Set Associative
 3.  Direct Map
 
-</br>
+## System Call
+프로세스 생성과 제어를 위한 system call
+* fork(): 하나의 프로그램이 실행하는 도중에 실행하면 두개위 프로그램으로 나뉘게 된다.
+``` c
+int pid = fork()
+if(pid < 0) exit(1) //error
+else if(pid == 0) // fork는 child에게 0을 반환
+ child : getpid()
+ parent: getppid()
+else // parent에겐 child pid 반환
+child: pid
+parent: getpid()
+```
+* wait(): child process가 종료될 때까지 기다리는 작업
+```c
+wait(&status)//성공시 child PID 반환
+  //status에도 반환값 저장
+```
 
----
+* waitpid(): wait에 옵션 추가
+```c
+pid_t waitpid(pid_t pid, int*statloc, int options)
+//pid
+// -1: 임의의 자식 프로세스 대기
+// <-1: 그룹 id가 pid 절댓값과 같은 자식 프로세스가 대기
+// 0: parent 의 그룹 id와 같은 그룹 아이디를 가진 프로세스가 대기
+// > 0: pid 자식 프로세스 대기
+```
 
-</br>
-
-_OS.end_
+* exec: child가 parent와 다른 코드를 실행하게 하고 싶을 때 
+현재 프로세스를 종료하고 명령어와 매계변수가 초기화 된다.
+```c
+if(rc == 0){
+  char * myargs[3]
+  myargs[0] = strdup("wc")
+  myargs[1] = strdup("p3.c")
+  myargs[2] = NULL //end of array
+  execvp(myargs[0], myargs);
+  printf("this will not print");
+}
+```

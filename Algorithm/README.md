@@ -376,3 +376,100 @@ for k = 1 to len // 거쳐가는 노드
 		for j = 1 to len //도착 하는 노드
 			dist[i][j] = min(dist[i][k] + dist[k][j], dist[i][j])
 ```
+
+## Dynamic Programming
+Subproblems lead to total solution
+
+ ### Longest Common Subsequence
+ 두 단어에 대해 글자들의 상대적인 위치를 바꾸지 않고 만들 수 있는 공통적 인 글자의 수열을 지칭한다.
+
+because the orders won't change, the sub problem would be the longest subsquence when words have 1 characters, 2 characters etc.
+when a word size increases, and the increased word has same word, the subsequence has gotten longer.
+
+ ```cpp
+int n = s1.length(), m = s2.length();
+for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= m; ++j) {
+        if (s1[i - 1] == s2[j - 1])
+            dp[i][j] = dp[i - 1][j - 1] + 1;
+        else
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+    }
+}
+return dp[n][m];
+ ```
+
+ ### Knapsack Problem
+ the Knapsack problem, when with div possible, we use greedy. But the knapsack problem is usually 1/0, we use dp.
+
+ the sub problem would be when there's only one item.
+ when there are two items, we can choose either when the prv item is included or not.
+
+ In brute Force, 
+ ```cpp
+ // Returns the maximum value that
+// can be put in a knapsack of capacity W
+int knapSack(int W, int wt[], int val[], int n)
+{
+    // Base Case
+    if (n == 0 || W == 0)
+        return 0;
+ 
+    // If weight of the nth item is more
+    // than Knapsack capacity W, then
+    // this item cannot be included
+    // in the optimal solution
+    if (wt[n - 1] > W)
+        return knapSack(W, wt, val, n - 1);
+ 
+    // Return the maximum of two cases:
+    // (1) nth item included
+    // (2) not included
+    else
+        return max(
+            val[n - 1]
+                + knapSack(W - wt[n - 1],
+                           wt, val, n - 1),
+            knapSack(W, wt, val, n - 1));
+}
+ ```
+
+Dp로 옮길 때 아이템의 개수와 weight가 각각 행과 열이 된다.
+k[i][w], 즉 아이템 i 개와 weight w일 때 i 번째 아이템을 넣었을 때 무게를 추가한 것과 뺀 것 중 가치가 높은 것을 고른다.
+
+```cpp
+    int i, w;
+      vector<vector<int>> K(n + 1, vector<int>(W + 1));
+ 
+    // Build table K[][] in bottom up manner
+    for(i = 0; i <= n; i++)
+    {
+        for(w = 0; w <= W; w++)
+        {
+            if (i == 0 || w == 0)
+                K[i][w] = 0;
+            else if (wt[i - 1] <= w)
+                K[i][w] = max(val[i - 1] +
+                                K[i - 1][w - wt[i - 1]],
+                                K[i - 1][w]);
+            else
+                K[i][w] = K[i - 1][w];
+        }
+    }
+    return K[n][W];
+```
+필요 공간을 줄이는 방법이 있다.
+배낭 문제는 아이템에 대해 무게를 계산하며 계산된 것은 그 다음 아이템에 대해서만 쓰인다.
+그래서 무게에 대해서만 array를 만들고 아이템 무게 계산은 그 전에 계산한 것을 덮어씌우는 방식이 존재한다.
+```cpp
+vector<int> dp(W + 1, 0);
+for(int i = 1; i < n + 1; ++i){
+	for(int w = W; w >= 0; w--){
+		if(wt[i - 1] <= w>){
+			dp[w] = max(dp[w], dp[w - wt[i - 1]] + val[i - 1]);
+		}
+	}
+	return dp[W];
+}
+```
+Weight가 float, double 등이라면 정수가 될 때까지 곱해서 정수일때의 문제와 동일하게 대하면 된다.

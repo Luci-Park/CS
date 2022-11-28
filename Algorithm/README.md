@@ -439,7 +439,7 @@ k[i][w], 즉 아이템 i 개와 weight w일 때 i 번째 아이템을 넣었을 
 
 ```cpp
     int i, w;
-      vector<vector<int>> K(n + 1, vector<int>(W + 1));
+    vector<vector<int>> K(n + 1, vector<int>(W + 1));
  
     // Build table K[][] in bottom up manner
     for(i = 0; i <= n; i++)

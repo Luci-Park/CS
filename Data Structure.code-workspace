@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "Data Structure"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../Coding/.vscode"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"algorithm": "cpp"
+		}
+	}
+}

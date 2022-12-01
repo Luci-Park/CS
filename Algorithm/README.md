@@ -39,6 +39,12 @@ for i = 1 to len
 ### Bubble Sort
 * 두 개씩 비교해서 순서가 맞지 않으면 두 위치를 swap
 * 복잡도: O(n^2)
+* 장점
+ - 제자리 정렬
+ - 구현이 쉽다
+* 단점
+ - 무조건 O(n^2)의 느림
+ - 원소의 개수와 비교횟수가 비례해서 늘어남.
 ```
 for i = 1 to len - 1
 	for j = 1 to len - i - 1
@@ -151,9 +157,11 @@ MaxHeapify(A, size, i) // i 번째 노드에 대해 heapify 진행
 		MaxHeapify(A, size, largest) // swap이 일어났다면 노드에 대해 heapify 연산 수행
 ```
 
-## 그래프 탐색 알고리즘
+## 그래프 알고리즘
 
-### BFS
+### 그래프 탐색
+
+#### BFS
 * 이웃들을 먼저 탐색하고 자식들을 탐색하는 알고리즘
 * 큐를 사용해서 구현
 ```
@@ -167,7 +175,7 @@ while Q is not empty
 			neighbour.visited = true;
 			add neighbour to Q
 ```
-### DFS
+#### DFS
 * 자식들을 먼저 탐색하는 알고리즘
 * 재귀 함수 or 스택 사용해서 구현
 ```
@@ -190,11 +198,11 @@ DFS(root )
 		if neighbour is not visited
 			DFS(neighbour);
 ```
-## Minimal Spanning Tree(최소 신장 트리)
+### Minimal Spanning Tree(최소 신장 트리)
 Minimal Spanning Tree는 모든 정점이 연결되어 있고 사이클이 없는 그래프 간선의 합이 최소가 되는 트리의 형태.
 네트워크 구축할 때 사용.
 
-### Kruskal 알고리즘
+#### Kruskal 알고리즘
 
 * 사이클이 생기지 않는 간선들 중에서 가장 가중치가 작은 간선부터 고르는 방법
 * Union - Find 알고리즘을 기본으로 함.
@@ -226,7 +234,7 @@ Kruskal(Graph)
 			else
 				parent[a] = b
 ```
-### Prim 알고리즘
+#### Prim 알고리즘
 
 * 임의로 정점을 하나 선택해서 연결 간선 중 가장 작은 것을 선택한다.
 * 해당 간선이 visited 배열 안에 포합되어 있다면 선택하지 않는다.
@@ -245,6 +253,14 @@ Prim(Graph, Weight, root)
 				v.parent = u
 				v.key = w(u, v)
 ```
+
+### 그래프 지름
+그래프 지름이란 그래프 내에서 가장 긴 경로를 말한다.
+이를 구하는 방법은 
+1) 임의의 점에서 가장 멀리 떨어진 노드를 찾고
+2) 1에서 찾은 노드에서 가장 멀리 떨어진 노드를 찾으면
+그 길이가 지름이다.
+
 
 ## 최단 거리 알고리즘
 
@@ -473,3 +489,70 @@ for(int i = 1; i < n + 1; ++i){
 }
 ```
 Weight가 float, double 등이라면 정수가 될 때까지 곱해서 정수일때의 문제와 동일하게 대하면 된다.
+
+## Math
+
+### 최대공약수, 최소공배수
+__유클리드 호제법__
+두 양의 정수에 대해 a = bq + r이면 a,b 의 최대공약수는 b,r의 최대공약수와 같다.
+최대공약수는 a와 b의 곱을 최소공배수로 나눠주는 것과 동일하다.
+```cpp
+int gcd(int a, int b){
+	int r = a% b
+	return r == 0 ? b, gcd(b, r);
+}
+
+int lcm(int a, int b){
+	return a * b / gcd(a, b);
+}
+```
+### 순열, 조합
+순열은 recursion에서 각 위치(depth)에서 모든 원소를 하나씩 넣어보는 것과 같다.
+조합은 한 번호를 선택했을 때 나오는 모든 조합들의 합을 가진 재귀의 일종이다.
+
+``` cpp
+//nPr
+void Permutation(int depth){
+	if(depth == r) print(arr);
+	else{
+		for(int i = 0; i < n; ++i){
+			if(visited[i]) continue;
+			visited[i] = true;
+			arr[depth] = i;
+			Permutation(depth + 1);
+			visited[i] = false;
+		}
+	}
+}
+
+void DuplicatePermutation(int depth){
+	if(depth == r) print(arr);
+	else{
+		for(int i = 0; i < n; ++i){
+			arr[depth] = i;
+			DuplicatePermutation(depth + 1);
+		}
+	}
+}
+
+//nCr
+void Combination(int depth, int next){
+	if(depth == r) print(arr);
+	else{
+		for(int i = next; i < n; ++i){
+			arr[depth] = i;
+			Combination(depth + 1, i + 1);
+		}
+	}
+}
+void DuplicateCombination(int depth, int next){
+	if(depth == r) print(arr);
+	else{
+		for(int i = next; i < n; ++i){
+			arr[depth] = i;
+			DuplicateCombination(depth + 1, i);
+		}
+	}
+}
+```
+

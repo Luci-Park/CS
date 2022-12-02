@@ -300,7 +300,7 @@ auto l2 = {0}; // list type
 |a % b|T T::operator%(const T2 &b) const;|T operator%(const T &a, const T2 &b);|
 |~a|T T::operator~() const;|T operator~(const T &a);|
 |a & b|T T::operator+(const T2 &b) const;|T operator+(const T &a, const T2 &b);|
-|a | b|T T::operator-(const T2 &b) const;|T operator-(const T &a, const T2 &b);|
+|a \| b|T T::operator-(const T2 &b) const;|T operator-(const T &a, const T2 &b);|
 |a ^ b|T T::operator*(const T2 &b) const;|T operator*(const T &a, const T2 &b);|
 |a << b|T T::operator/(const T2 &b) const;|T operator/(const T &a, const T2 &b);|
 |a >> b|T T::operator%(const T2 &b) const;|T operator%(const T &a, const T2 &b);|

@@ -290,6 +290,7 @@ auto l2 = {0}; // list type
 
 ## 연산자 overriding
 |문법|클래스 내부 정의| 클래스 외부 정의|
+|--|--|--|
 |+a|T T::operator+() const;|T operator+(const T &a);|
 |-a|T T::operator-() const;|T operator-(const T &a);|
 |a + b|T T::operator+(const T2 &b) const;|T operator+(const T &a, const T2 &b);|

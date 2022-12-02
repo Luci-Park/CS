@@ -353,3 +353,4 @@ auto l2 = {0}; // list type
 함수의 매개 변수는 함수 정의 종료에서 끝난다.
 
 **수명**
+https://maxcomfem.tistory.com/5

@@ -555,4 +555,6 @@ void DuplicateCombination(int depth, int next){
 	}
 }
 ```
-
+#### 조합의 성질
+* nCm = n!/((n - m)! * m!)
+* nCm = n-1Cm-1 + n-Cm => dp로 활용 가능

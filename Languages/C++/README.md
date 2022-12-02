@@ -5,7 +5,9 @@
 * [ReferenceSheet](#reference-sheet)
 * [Coding Style](#코딩-스타일)
 * [자료형](#자료형)
+* [유리수 자료형](#유리수-자료형-관련)
 * [연산 overriding](#연산자-overriding)
+* [범위와 수명](#범위와-수명scope-and-lifetime)
 ## About C++
 C++는 자유롭기에 어떤 스타일이던 문제가 되지 않는다. 다만 거기에 대한 책임을 져야 한다.
 * C++는 C의 많은 부분을 차지하기에 C 스타일 코딩을 해도 된다. 자료형만 명확히 해라
@@ -272,9 +274,6 @@ reinterpret_cast<new_type>(expression); //포인터 자료형 변환
 dynamic_cast<new_type>(expression); // 상속 구조에서 상위 혹은 하위 자료형으로 변환
 ```
 
-### 엔디언(endian)
-정수 자료형을 1차원 공간에 바이트 정렬하는 방법.
-CPU에 따라 빅엔디언과 리틀 엔디언이 있다.
 
 ### auto, decltype, typeinfo
 컴파일 타임에 객체의 자료형을 결정하는 것.
@@ -288,6 +287,13 @@ auto l1 {0}; //integer type
 auto l2 = {0}; // list type
 ```
 
+## 유리수 자료형 관련
+
+### 엔디언(endian)
+유리수 자료형을 1차원 공간에 바이트 정렬하는 방법.
+CPU에 따라 빅엔디언과 리틀 엔디언이 있다.
+
+
 ## 연산자 overriding
 |문법|클래스 내부 정의| 클래스 외부 정의|
 |--|--|--|
@@ -299,9 +305,10 @@ auto l2 = {0}; // list type
 |a / b|T T::operator/(const T2 &b) const;|T operator/(const T &a, const T2 &b);|
 |a % b|T T::operator%(const T2 &b) const;|T operator%(const T &a, const T2 &b);|
 |~a|T T::operator~() const;|T operator~(const T &a);|
-|a & b|T T::operator+(const T2 &b) const;|T operator+(const T &a, const T2 &b);|
-|a \| b|T T::operator-(const T2 &b) const;|T operator-(const T &a, const T2 &b);|
-|a ^ b|T T::operator*(const T2 &b) const;|T operator*(const T &a, const T2 &b);|
-|a << b|T T::operator/(const T2 &b) const;|T operator/(const T &a, const T2 &b);|
-|a >> b|T T::operator%(const T2 &b) const;|T operator%(const T &a, const T2 &b);|
+|a & b|T T::operator&(const T2 &b) const;|T operator&(const T &a, const T2 &b);|
+|a \| b|T T::operator\|(const T2 &b) const;|T operator\|(const T &a, const T2 &b);|
+|a ^ b|T T::operator^(const T2 &b) const;|T operator^(const T &a, const T2 &b);|
+|a << b|T T::operator<<(const T2 &b) const;|T operator<<(const T &a, const T2 &b);|
+|a >> b|T T::operator>>(const T2 &b) const;|T operator>>(const T &a, const T2 &b);|
 
+## 범위와 수명(Scope and Lifetime)

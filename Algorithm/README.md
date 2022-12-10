@@ -396,11 +396,10 @@ for k = 1 to len // 거쳐가는 노드
 ## Dynamic Programming
 Subproblems lead to total solution
 
- ### Longest Common Subsequence
- 두 단어에 대해 글자들의 상대적인 위치를 바꾸지 않고 만들 수 있는 공통적 인 글자의 수열을 지칭한다.
-
-because the orders won't change, the sub problem would be the longest subsquence when words have 1 characters, 2 characters etc.
-when a word size increases, and the increased word has same word, the subsequence has gotten longer.
+### Longest Common Subsequence
+두 단어에 대해 글자들의 상대적인 위치를 바꾸지 않고 만들 수 있는 공통적인 글자의 수열을 지칭한다.
+단어의 순서가 바뀌는 것이 아니기 때문에 하위 문제는 단어의 길이가 1일때, 2일때 등이다.
+두 단어의 길이가 늘어나고 같은 글자를 가지고 있다면 LCS가 커진 것이다.
 
  ```cpp
 int n = s1.length(), m = s2.length();
@@ -416,11 +415,10 @@ return dp[n][m];
  ```
 
  ### Knapsack Problem
- the Knapsack problem, when with div possible, we use greedy. But the knapsack problem is usually 1/0, we use dp.
-
- the sub problem would be when there's only one item.
- when there are two items, we can choose either when the prv item is included or not.
-
+ 가방 문제. 아이템들이 모레처럼 분수로 나누는 것이 가능하다면 그리디 법을 사용한다.
+ 하지만 보통 아이템은 넣거나 아니거나(1/0)이므로 dp를 쓴다.
+ 하위 문제는 아이템이 하나만 있을 때이며 아이템이 두 개 이상일 때 그 전 아이템이 포함된 경우와 안된 경우를 봐야 한다.
+ 
  In brute Force, 
  ```cpp
  // Returns the maximum value that
@@ -489,6 +487,7 @@ for(int i = 1; i < n + 1; ++i){
 }
 ```
 Weight가 float, double 등이라면 정수가 될 때까지 곱해서 정수일때의 문제와 동일하게 대하면 된다.
+Weight가 정수가 아닐 수는 없다.
 
 ## Math
 

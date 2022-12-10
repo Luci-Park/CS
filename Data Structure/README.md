@@ -41,10 +41,16 @@
 #### Binary Tree(이진 트리)
 
 * 모든 root은 두 개의 subree를 가진다(이 때 공집합도 이진 트리이다)
-* 배열로 구성되었고, root이 1에서 시작하며, 노드의 개수가 n개 일 때:
-    + Left(i) = 2 * i
-    + Right(i) = 2 * i + 1
-    + Parent(i) = lower_bound(i / 2)
+* 배열로 구성되었고, 노드의 개수가 n개 일 때:
+    * Root = 0 일 때
+        * Parent(i) = (i - 1)/2
+        * Left(i) = i * 2 + 1
+        * Right(i) = i * 2 + 2
+    * Root = 1 일때
+        + Parent(i) = lower_bound(i / 2)
+        + Left(i) = 2 * i
+        + Right(i) = 2 * i + 1
+        
     + Height = lower_bound(n / 2)
 * Full Binary Tree(정 이진 트리): 모든 비단말 노드가 2개 자식을 가지고 있는 이진 트리
 * Perfect Binary Tree(포화 이진 트리): 모든 레벨이 꽉 찬 이진 트리

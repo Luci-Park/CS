@@ -1,0 +1,55 @@
+https://www.youtube.com/watch?v=kfM-yu0iQBk
+Shader: code on GPU
+how should the surface look?
+textures are parameters used in shaders
+blend mode
+	- multiply (darkens down)
+	- add (lightens up)
+	- alpha(덧 씌움)
+TA makes shaders
+- material: defines shader parameters like colors, values, textures, etc.
+
+-Shader
+	- Properties: input data
+		- Colors
+		- Values
+		- Textures
+		- Mesh
+		- Matrix 4x4
+	- SubShader(multiple): shaders for multiple performances
+		- Pass(multiple): Where the code happens
+			-Vertex shader: the colors of vertex;
+				- water, wind moving: we can move vertices in the vertex shader
+			- Fragment(pixel) shader: the colors in between each vertex
+				- set the color of every pixel
+
+- CGPROGRAM 에서 코드 시작
+_Value("value", Float) = 1.0 //internal variable [_Value], external variable [value]
+
+struct appdata{ //per-vertex mesh data
+	float4 vertex : POSITION; //vertex position
+	float3 nomals: NORMAL;
+	float4 color: COLOR;
+	float4 tangent : TANGENT;
+	float2 uv0 : TEXCOORD0; // uv0 coordinates
+	float2 uv1 : TEXCOORD1; // uv0 coordinates
+};
+
+struct v2f{ vertex -> fragment shader로 정보 옮기는 역할
+	float4 vertex : SV_POSITION // clip space position
+	float4 normal :TEXCOORD0 // 여기선 uv coord가 아니라 float4 value의 사용자 정의 변수다.
+};
+
+//float (32-bit float)
+// half (16-bit float)
+// fixed(lower precision) -1 to 1
+// float4 -> half4 -> fixed4
+// float4 -> half4 -> fixed4
+// float4x4 -> half4x4 (C#: Matrix4x4)
+
+v2f vert(appdata v){ // vertex -> fragment으로 바꾸는 과정
+	v2f o;
+	o.vertex = UnityObjectToClipPos(v.vertex); // local space to clip space
+	o.normal = v.normals;
+	return o;
+}

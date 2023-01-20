@@ -1,5 +1,11 @@
 # Computer Graphics
 
+## Shaders
+Shader : GPU에서 돌아가는 코드. How 
+
+### 출처
+
+[Shader Basics: Freya Holmér](https://www.youtube.com/watch?v=kfM-yu0iQBk)
 ## Geometry
 
 ## Rotation
